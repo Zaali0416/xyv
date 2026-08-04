@@ -1,56 +1,83 @@
+---
 # Tiny Tapeout project information
 project:
-  title:        ""      # Project title
-  author:       ""      # Your name
-  discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
-  language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
+  title:        "Water Management System IC"
+  description:  "ASIC Logic for Water Tank Control, Debouncing, and Fault Detection"
+  author:       "Your Name"
+  github:       "YourGitHubUsername"
+  discord:      ""
+  language:     "Verilog"
+  clock_hz:     50000000
 
-  # How many tiles your design occupies? A single tile is about 167x108 uM.
-  tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
+# Specify the name of your top Verilog module and the file it lives in
+# Tiny Tapeout requires the wrapper to follow the tt_um_<repo_name> naming convention
+top_module:  "tt_um_xyv"
 
-  # Your top module name must start with "tt_um_". Make it unique by including your github username:
-  top_module:  "tt_um_example"
+# List all Verilog files in src/ relative to the repository root
+source_files:
+  - "project.v"
+  - "wms_ic_asci.v"
 
-  # List your project's source files here.
-  # Source files must be in ./src and you must list each source file separately, one per line.
-  # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
-  source_files:
-    - "project.v"
-
-# The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
-# This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
+# Pinout mapping (mapped to Tiny Tapeout dedicated I/O pins)
 pinout:
-  # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
-  ui[3]: ""
-  ui[4]: ""
-  ui[5]: ""
-  ui[6]: ""
-  ui[7]: ""
+  # Dedicated Inputs (ui_in)
+  ui_in:
+    - "TANK_SENSORS[0]" # UP_10
+    - "TANK_SENSORS[1]" # UP_30
+    - "TANK_SENSORS[2]" # UP_50
+    - "TANK_SENSORS[3]" # UP_70
+    - "TANK_SENSORS[4]" # UP_90
+    - "TANK_SENSORS[5]" # UP_100
+    - "LT_SIGNAL"       # Lower Tank Probe
+    - "WF_PROBE"        # Water Flow Probe
 
-  # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  # Dedicated Outputs (uo_out)
+  uo_out:
+    - "LED_UP[0]"       # LED UP 10%
+    - "LED_UP[1]"       # LED UP 30%
+    - "LED_UP[2]"       # LED UP 50%
+    - "LED_UP[3]"       # LED UP 70%
+    - "LED_UP[4]"       # LED UP 90%
+    - "LED_UP[5]"       # LED UP 100%
+    - "LED_LT"          # Lower Tank LED
+    - "MOTOR"           # Pump Relay Output
 
-  # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  # Bidirectional I/O pins configured as inputs/outputs (uio_in / uio_out)
+  uio_in:
+    - "BUZZ_OFF"        # Alarm Mute Button
+    - "Unused"
+    - "Unused"
+    - "Unused"
+    - "Unused"
+    - "Unused"
+    - "Unused"
+    - "Unused"
 
-# Do not change!
-yaml_version: 6
+  uio_out:
+    - "Unused"
+    - "ERROR"           # Fault Indicator
+    - "BUZZER"          # Alarm Output
+    - "Unused"
+    - "Unused"
+    - "Unused"
+    - "Unused"
+    - "Unused"
+
+  # Direction mask for Bidirectional pins: 1 = Output, 0 = Input
+  # uio[0]=Input (BUZZ_OFF), uio[1]=Output (ERROR), uio[2]=Output (BUZZER)
+  uio_oe:
+    - 0
+    - 1
+    - 1
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+
+# Documentation summary
+documentation:
+  inputs:       "Tank sensors, probes, mute button"
+  outputs:      "Motor drive, tank level LEDs, error/buzzer alarms"
+  how_it_works: "Controls pump based on upper/lower tank levels and trips fault if flow fails."
+  how_to_test:  "Apply clock, pulse reset, manipulate TANK_SENSORS and probes."
