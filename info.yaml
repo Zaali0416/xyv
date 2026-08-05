@@ -1,4 +1,5 @@
 ---
+# Tiny Tapeout project information
 project:
   title:        "Water Management System IC"
   description:  "ASIC Logic for Water Tank Control, Debouncing, and Fault Detection"
@@ -7,36 +8,40 @@ project:
   discord:      ""
   language:     "Verilog"
   clock_hz:     50000000
+  wokwi_id:     0
 
+# Top Verilog module name (MUST match module name in src/project.v)
 top_module:  "tt_um_xyv"
 
+# Source files relative to repository root
 source_files:
   - "project.v"
   - "wms_ic_asic_system.v"
 
+# Pinout mapping
 pinout:
   ui_in:
-    - "TANK_SENSORS[0]" # UP_10
-    - "TANK_SENSORS[1]" # UP_30
-    - "TANK_SENSORS[2]" # UP_50
-    - "TANK_SENSORS[3]" # UP_70
-    - "TANK_SENSORS[4]" # UP_90
-    - "TANK_SENSORS[5]" # UP_100
-    - "LT_SIGNAL"       # Lower Tank Probe
-    - "WF_PROBE"        # Water Flow Probe
+    - "TANK_SENSORS[0]"
+    - "TANK_SENSORS[1]"
+    - "TANK_SENSORS[2]"
+    - "TANK_SENSORS[3]"
+    - "TANK_SENSORS[4]"
+    - "TANK_SENSORS[5]"
+    - "LT_SIGNAL"
+    - "WF_PROBE"
 
   uo_out:
-    - "LED_UP[0]"       # LED UP 10%
-    - "LED_UP[1]"       # LED UP 30%
-    - "LED_UP[2]"       # LED UP 50%
-    - "LED_UP[3]"       # LED UP 70%
-    - "LED_UP[4]"       # LED UP 90%
-    - "LED_UP[5]"       # LED UP 100%
-    - "LED_LT"          # Lower Tank LED
-    - "MOTOR"           # Pump Relay Output
+    - "LED_UP[0]"
+    - "LED_UP[1]"
+    - "LED_UP[2]"
+    - "LED_UP[3]"
+    - "LED_UP[4]"
+    - "LED_UP[5]"
+    - "LED_LT"
+    - "MOTOR"
 
   uio_in:
-    - "BUZZ_OFF"        # Alarm Mute Button
+    - "BUZZ_OFF"
     - "Unused"
     - "Unused"
     - "Unused"
@@ -47,8 +52,8 @@ pinout:
 
   uio_out:
     - "Unused"
-    - "ERROR"           # Fault Indicator
-    - "BUZZER"          # Alarm Output
+    - "ERROR"
+    - "BUZZER"
     - "Unused"
     - "Unused"
     - "Unused"
