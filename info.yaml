@@ -1,26 +1,20 @@
 ---
-# Tiny Tapeout project information
 project:
   title:        "Water Management System IC"
   description:  "ASIC Logic for Water Tank Control, Debouncing, and Fault Detection"
-  author:       "Your Name"
-  github:       "YourGitHubUsername"
+  author:       "Zain Ali"
+  github:       "Zaali0416"
   discord:      ""
   language:     "Verilog"
   clock_hz:     50000000
 
-# Specify the name of your top Verilog module and the file it lives in
-# Tiny Tapeout requires the wrapper to follow the tt_um_<repo_name> naming convention
 top_module:  "tt_um_xyv"
 
-# List all Verilog files in src/ relative to the repository root
 source_files:
   - "project.v"
-  - "wms_ic_asci.v"
+  - "wms_ic_asic_system.v"
 
-# Pinout mapping (mapped to Tiny Tapeout dedicated I/O pins)
 pinout:
-  # Dedicated Inputs (ui_in)
   ui_in:
     - "TANK_SENSORS[0]" # UP_10
     - "TANK_SENSORS[1]" # UP_30
@@ -31,7 +25,6 @@ pinout:
     - "LT_SIGNAL"       # Lower Tank Probe
     - "WF_PROBE"        # Water Flow Probe
 
-  # Dedicated Outputs (uo_out)
   uo_out:
     - "LED_UP[0]"       # LED UP 10%
     - "LED_UP[1]"       # LED UP 30%
@@ -42,7 +35,6 @@ pinout:
     - "LED_LT"          # Lower Tank LED
     - "MOTOR"           # Pump Relay Output
 
-  # Bidirectional I/O pins configured as inputs/outputs (uio_in / uio_out)
   uio_in:
     - "BUZZ_OFF"        # Alarm Mute Button
     - "Unused"
@@ -63,8 +55,6 @@ pinout:
     - "Unused"
     - "Unused"
 
-  # Direction mask for Bidirectional pins: 1 = Output, 0 = Input
-  # uio[0]=Input (BUZZ_OFF), uio[1]=Output (ERROR), uio[2]=Output (BUZZER)
   uio_oe:
     - 0
     - 1
@@ -75,7 +65,6 @@ pinout:
     - 0
     - 0
 
-# Documentation summary
 documentation:
   inputs:       "Tank sensors, probes, mute button"
   outputs:      "Motor drive, tank level LEDs, error/buzzer alarms"
