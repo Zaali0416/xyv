@@ -2,7 +2,7 @@
   "DESIGN_NAME": "tt_um_xyv",
   "VERILOG_FILES": [
     "dir::project.v",
-    "dir::wms_ic_asci.v"
+    "dir::wms_ic_asic_system.v"
   ],
   "CLOCK_PERIOD": 20.0,
   "CLOCK_PORT": "clk",
